@@ -1,0 +1,5 @@
+asm -c amd64 "mov rax, rdi
+div rsi                               
+mov rax, rdx" | /challenge/embryoasm_level5
+
+flag: pwn.college{gNaNQWgLQa0Kkte_G22woxwk8fv.QX4kTMsADOzQzW}

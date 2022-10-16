@@ -1,0 +1,2 @@
+asm -c amd64 "add rdi, 0x331337" | /challenge/embryoasm_level2       
+flag: pwn.college{YXKND95czj9WomYOQxpMBmIn8kp.QX1kTMsADOzQzW}

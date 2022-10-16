@@ -1,0 +1,4 @@
+asm -c amd64 "xor rax, rax
+or rax, rdi
+and rax, rsi" | /challenge/embryoasm_level8
+flag: pwn.college{4vcBB0g5hhnn-zO85Yiu96iAS7V.QXxAjMsADOzQzW}
