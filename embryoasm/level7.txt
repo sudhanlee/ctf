@@ -1,0 +1,4 @@
+asm -c amd64 "mov rcx, rdi
+shr rcx, 24
+mov al, cl" | /challenge/embryoasm_level7
+
